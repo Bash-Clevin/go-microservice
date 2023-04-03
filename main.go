@@ -1,7 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+	"log"
+)
 
 func main() {
-	fmt.Println("Hello World")
+	svc := NewLoggingService(priceFetcher{})
+
+	price, err := svc.FetchPrice(context.Background(), "BTC")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(price)
 }
